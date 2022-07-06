@@ -14,7 +14,7 @@ abstract class AfsCustomSearchAdsSdkPlatform extends PlatformInterface {
   ///
   /// Defaults to [MethodChannelAfsCustomSearchAdsSdk].
   static AfsCustomSearchAdsSdkPlatform get instance => _instance;
-  
+
   /// Platform-specific implementations should set this with their own
   /// platform-specific class that extends [AfsCustomSearchAdsSdkPlatform] when
   /// they register themselves.
@@ -28,15 +28,15 @@ abstract class AfsCustomSearchAdsSdkPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<void> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) {
+  Future<String?> buildSearchAdOptions(int? numOfAdsRequested, bool? preFetch) {
     throw UnimplementedError('buildSearchAdOptions() has not been implemented.');
   }
 
-  Future<void> buildSearchAdController({required String styleId, required String publisherId}) {
+  Future<String?> buildSearchAdController(String styleId, String publisherId) {
     throw UnimplementedError('buildSearchAdController() has not been implemented.');
   }
 
-  Future<void> loadAds({required String keyword}) {
+  Future<String?> loadAds(String keyword) {
     throw UnimplementedError('loadAds() has not been implemented.');
   }
 }

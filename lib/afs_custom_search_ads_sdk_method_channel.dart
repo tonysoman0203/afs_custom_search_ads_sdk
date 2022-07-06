@@ -7,7 +7,7 @@ import 'afs_custom_search_ads_sdk_platform_interface.dart';
 class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('afs_custom_search_ads_sdk');
+  final methodChannel = const MethodChannel('AFSCustomSearchAdsSdk');
 
   // template generated
   @override
@@ -17,26 +17,26 @@ class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
   }
 
   @override
-  Future<void> loadAds({required String keyword}) async {
-    final result = await methodChannel.invokeMethod("loadAds");
+  Future<String?> loadAds(String keyword) async {
+    final result = await methodChannel.invokeMethod("loadAds", {"keyword":keyword});
     return result;
   }
 
   @override
-  Future<void> buildSearchAdController({required String styleId, required String publisherId}) async {
-    final result = await methodChannel.invokeMethod("buildSearchAdController", [
-      MapEntry("styleId", styleId),
-      MapEntry("publisherId", publisherId),
-    ]);
+  Future<String?> buildSearchAdController(String styleId, String publisherId) async {
+    final result = await methodChannel.invokeMethod("buildSearchAdController", <String, dynamic>{
+      "styleId": styleId,
+      "publisherId": publisherId,
+    });
     return result;
   }
 
   @override
-  Future<void> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) async {
-    final result = await methodChannel.invokeMethod("buildSearchAdOptions", [
-      MapEntry("numOfAdsRequested", numOfAdsRequested),
-      MapEntry("preFetch", preFetch),
-    ]);
+  Future<String?> buildSearchAdOptions(int? numOfAdsRequested, bool? preFetch) async {
+    final result = await methodChannel.invokeMethod("buildSearchAdOptions",  <String, dynamic>{
+      "numOfAdsRequested": numOfAdsRequested,
+      "preFetch": preFetch,
+    });
     return result;
   }
 }
