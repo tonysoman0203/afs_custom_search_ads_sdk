@@ -9,12 +9,13 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 A new Flutter plugin project.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/tonysoman0203/flutter_afs_custom_search_ads_sdk/tree/develop'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'TonySoMan' => 'tonysoman.develop@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
+  s.dependency 'Google-AFSNative', '~> *'
   s.platform = :ios, '9.0'
 
   # Flutter.framework does not contain a i386 slice.
