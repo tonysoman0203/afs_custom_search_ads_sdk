@@ -56,6 +56,7 @@ class AFSNativeAdsPlatformView(
     fun buildSearchAdOptions(call: Map<String?, Any?>) {
         val numOfAdsRequested = call["numOfAdsRequested"] as Int?
         val preFetch: Boolean = call["preFetch"] as Boolean? ?: true
+        val searchChannel = call["channel"] as String?
 
         adOptionBuilder?.let {
             adOptions = it.build()
@@ -65,6 +66,9 @@ class AFSNativeAdsPlatformView(
             adOptionBuilder?.setPrefetch(preFetch)
             numOfAdsRequested?.let {
                 adOptionBuilder?.setNumAdsRequested(it)
+            }
+            searchChannel?.let {
+                adOptionBuilder?.setChannel(it)
             }
             adOptions = adOptionBuilder?.build()
         }

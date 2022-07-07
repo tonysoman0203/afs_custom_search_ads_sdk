@@ -25,11 +25,15 @@ abstract class AfsCustomSearchAdsSdkPlatform extends PlatformInterface {
 
   // template generated
 
-  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) {
+  Future<String?> buildSearchAdOptions({
+    int? numOfAdsRequested,
+    bool? preFetch,
+    String? channel
+  }) {
     throw UnimplementedError('buildSearchAdOptions() has not been implemented.');
   }
 
-  Future<String?> buildSearchAdController(String styleId, String publisherId) {
+  Future<String?> buildSearchAdController({required String styleId, required String publisherId}) {
     throw UnimplementedError('buildSearchAdController() has not been implemented.');
   }
 

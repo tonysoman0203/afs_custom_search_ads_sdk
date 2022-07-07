@@ -7,17 +7,18 @@ class AfsCustomSearchAdsSdk {
     return AfsCustomSearchAdsSdkPlatform.instance.loadAds(keyword, adKey);
   }
 
-  Future<String?> buildSearchAdController(String styleId, String publisherId) async {
+  Future<String?> buildSearchAdController({required String styleId, required String publisherId}) async {
     return AfsCustomSearchAdsSdkPlatform.instance.buildSearchAdController(
-      styleId,
-        publisherId
+      styleId : styleId,
+        publisherId: publisherId
     );
   }
 
-  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) async {
+  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch, String? channel}) async {
     return AfsCustomSearchAdsSdkPlatform.instance.buildSearchAdOptions(
         numOfAdsRequested: numOfAdsRequested,
-        preFetch: preFetch
+        preFetch: preFetch,
+        channel: channel
     );
   }
 

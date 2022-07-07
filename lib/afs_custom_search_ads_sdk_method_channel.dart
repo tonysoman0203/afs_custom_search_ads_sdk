@@ -20,7 +20,7 @@ class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
   }
 
   @override
-  Future<String?> buildSearchAdController(String styleId, String publisherId) async {
+  Future<String?> buildSearchAdController({required String styleId, required String publisherId}) async {
     final result = await methodChannel.invokeMethod("buildSearchAdController", <String, dynamic>{
       "styleId": styleId,
       "publisherId": publisherId,
@@ -29,10 +29,11 @@ class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
   }
 
   @override
-  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) async {
+  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch, String? channel}) async {
     final result = await methodChannel.invokeMethod("buildSearchAdOptions",  <String, dynamic>{
       "numOfAdsRequested": numOfAdsRequested,
       "preFetch": preFetch,
+      "channel": channel
     });
     return result;
   }
