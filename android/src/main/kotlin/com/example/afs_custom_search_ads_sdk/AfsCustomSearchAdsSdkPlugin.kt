@@ -17,33 +17,17 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 
 /** AfsCustomSearchAdsSdkPlugin */
-class AfsCustomSearchAdsSdkPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
-
-
+class AfsCustomSearchAdsSdkPlugin: FlutterPlugin {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "AFSCustomSearchAdsSdk")
-//    mContext = flutterPluginBinding.applicationContext
     flutterPluginBinding
       .platformViewRegistry
-      .registerViewFactory("AFSNativeAdsView", AFSNativeViewFactory())
-    channel.setMethodCallHandler(this)
-  }
-
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    }
-    else {
-      result.notImplemented()
-    }
+      .registerViewFactory(
+        "AFSNativeAds",
+        AFSNativeViewFactory(flutterPluginBinding.binaryMessenger)
+      )
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
+
   }
 }

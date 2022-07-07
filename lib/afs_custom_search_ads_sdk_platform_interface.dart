@@ -24,11 +24,8 @@ abstract class AfsCustomSearchAdsSdkPlatform extends PlatformInterface {
   }
 
   // template generated
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
 
-  Future<String?> buildSearchAdOptions(int? numOfAdsRequested, bool? preFetch) {
+  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) {
     throw UnimplementedError('buildSearchAdOptions() has not been implemented.');
   }
 
@@ -36,7 +33,7 @@ abstract class AfsCustomSearchAdsSdkPlatform extends PlatformInterface {
     throw UnimplementedError('buildSearchAdController() has not been implemented.');
   }
 
-  Future<String?> loadAds(String keyword) {
+  Future<String?> loadAds(String keyword, String adKey) {
     throw UnimplementedError('loadAds() has not been implemented.');
   }
 }

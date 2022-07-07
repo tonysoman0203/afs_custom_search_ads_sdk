@@ -7,18 +7,15 @@ import 'afs_custom_search_ads_sdk_platform_interface.dart';
 class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('AFSCustomSearchAdsSdk');
+  late MethodChannel methodChannel;
 
-  // template generated
-  @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  MethodChannelAfsCustomSearchAdsSdk({int? id}) {
+    methodChannel = MethodChannel('AFSNativeAds/$id');
   }
 
   @override
-  Future<String?> loadAds(String keyword) async {
-    final result = await methodChannel.invokeMethod("loadAds", {"keyword":keyword});
+  Future<String?> loadAds(String keyword, String adKey) async {
+    final result = await methodChannel.invokeMethod("loadAds", {"keyword":keyword, "adKey":adKey});
     return result;
   }
 
@@ -32,7 +29,7 @@ class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
   }
 
   @override
-  Future<String?> buildSearchAdOptions(int? numOfAdsRequested, bool? preFetch) async {
+  Future<String?> buildSearchAdOptions({int? numOfAdsRequested, bool? preFetch}) async {
     final result = await methodChannel.invokeMethod("buildSearchAdOptions",  <String, dynamic>{
       "numOfAdsRequested": numOfAdsRequested,
       "preFetch": preFetch,
