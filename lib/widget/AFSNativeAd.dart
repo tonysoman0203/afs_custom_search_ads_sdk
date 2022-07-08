@@ -9,9 +9,11 @@ typedef void AFSNativeAdsCreatedCallback(MethodChannelAfsCustomSearchAdsSdk cont
 class AFSNativeAd extends StatelessWidget {
   static const StandardMessageCodec _decoder = StandardMessageCodec();
   AFSNativeAdsCreatedCallback? onAFSNativeAdsCreated;
+  final int height;
 
   AFSNativeAd({
     Key? key,
+    this.height = 250,
     this.onAFSNativeAdsCreated,
   }) : super(key: key);
 
@@ -21,6 +23,7 @@ class AFSNativeAd extends StatelessWidget {
       return AndroidView(
           viewType: 'AFSNativeAds',
           onPlatformViewCreated: _onPlatformViewCreated,
+          creationParams: args,
           creationParamsCodec: _decoder);
     }
 

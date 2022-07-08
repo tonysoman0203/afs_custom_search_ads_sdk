@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.gms.ads.afsn.AdListener
 import com.google.android.gms.ads.afsn.SearchAdController
@@ -18,7 +19,7 @@ import io.flutter.plugin.platform.PlatformView
 class AFSNativeAdsPlatformView(
     private val context: Context?,
     messenger: BinaryMessenger,
-    id: Int, creationParams: Any?,
+    id: Int, private val creationParams: Any?,
 ) : PlatformView, MethodChannel.MethodCallHandler {
 
     private val methodChannel: MethodChannel
@@ -34,8 +35,16 @@ class AFSNativeAdsPlatformView(
     init {
         cell = View.inflate(context!!, R.layout.cell_ads, null)
         adsContainer = cell?.findViewById(R.id.adsContainer)
+        Log.d("AFSNativeAdsPlatformView", creationParams.toString())
         methodChannel = MethodChannel(messenger, "AFSNativeAds/$id")
         methodChannel.setMethodCallHandler(this)
+    }
+
+    fun convertPxToDp(px: Int, context: Context): Int {
+        val resources = context.resources
+        val metrics = resources.displayMetrics
+        val dp = px / (metrics.densityDpi / 160f)
+        return dp.toInt()
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -89,7 +98,15 @@ class AFSNativeAdsPlatformView(
             val adView: View? = searchAdController?.createAdView()
             if (adView != null) {
                 adsContainer?.addView(adView)
+//                creationParams?.let {
+//                    val args = it as Map<String, Any>
+//                    Log.d("AFSNativeAdsPlatformView", args.toString())
+//
+//                }
                 searchAdController?.populateAdView(adView, adsKey)
+
+                adsContainer?.layoutParams?.height = adView.layoutParams.height
+                adsContainer?.requestLayout()
             }
         }
     }
