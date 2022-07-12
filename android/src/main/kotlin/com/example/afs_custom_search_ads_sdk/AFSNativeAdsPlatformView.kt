@@ -1,11 +1,11 @@
 package com.example.afs_custom_search_ads_sdk
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.gms.ads.afsn.AdListener
 import com.google.android.gms.ads.afsn.SearchAdController
@@ -16,9 +16,10 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
+
 class AFSNativeAdsPlatformView(
     private val context: Context?,
-    messenger: BinaryMessenger,
+    private val messenger: BinaryMessenger,
     id: Int, private val creationParams: Any?,
 ) : PlatformView, MethodChannel.MethodCallHandler {
 
@@ -33,9 +34,9 @@ class AFSNativeAdsPlatformView(
     private var adsContainer: FrameLayout? = null
 
     init {
+
         cell = View.inflate(context!!, R.layout.cell_ads, null)
         adsContainer = cell?.findViewById(R.id.adsContainer)
-        Log.d("AFSNativeAdsPlatformView", creationParams.toString())
         methodChannel = MethodChannel(messenger, "AFSNativeAds/$id")
         methodChannel.setMethodCallHandler(this)
     }
@@ -45,6 +46,12 @@ class AFSNativeAdsPlatformView(
         val metrics = resources.displayMetrics
         val dp = px / (metrics.densityDpi / 160f)
         return dp.toInt()
+    }
+
+    fun convertDpToPixel(dp: Float): Float {
+        val metrics = context?.resources?.displayMetrics
+        val px = dp * (metrics?.densityDpi?.div(160f)!!)
+        return Math.round(px).toFloat()
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -98,15 +105,9 @@ class AFSNativeAdsPlatformView(
             val adView: View? = searchAdController?.createAdView()
             if (adView != null) {
                 adsContainer?.addView(adView)
-//                creationParams?.let {
-//                    val args = it as Map<String, Any>
-//                    Log.d("AFSNativeAdsPlatformView", args.toString())
-//
-//                }
-                searchAdController?.populateAdView(adView, adsKey)
-
-                adsContainer?.layoutParams?.height = adView.layoutParams.height
-                adsContainer?.requestLayout()
+                searchAdController?.populateAdView(adView, adsKey) {
+                    methodChannel.invokeMethod("updateFlutterViewHeight", convertDpToPixel(adView.measuredHeight.toFloat()))
+                }
             }
         }
     }

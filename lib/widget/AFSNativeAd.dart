@@ -19,6 +19,7 @@ class AFSNativeAd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> args = { "height" : height};
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
           viewType: 'AFSNativeAds',

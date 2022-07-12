@@ -11,6 +11,15 @@ class MethodChannelAfsCustomSearchAdsSdk extends AfsCustomSearchAdsSdkPlatform {
 
   MethodChannelAfsCustomSearchAdsSdk({int? id}) {
     methodChannel = MethodChannel('AFSNativeAds/$id');
+    methodChannel.setMethodCallHandler(_handleMethod);
+  }
+
+  Future<dynamic> _handleMethod(MethodCall call) async {
+    switch (call.method) {
+      case 'updateFlutterViewHeight':
+        int adViewHeight = call.arguments as int;
+        return Future.value("Text from native: $adViewHeight");
+    }
   }
 
   @override
