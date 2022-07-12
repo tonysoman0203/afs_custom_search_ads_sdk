@@ -15,7 +15,8 @@ A new Flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Google-AFSNative', '~> *'
+#  s.dependency 'Google-AFSNative'
+  s.dependency 'Google-Mobile-Ads-SDK','9.6.0'
   s.platform = :ios, '9.0'
 
   # Flutter.framework does not contain a i386 slice.

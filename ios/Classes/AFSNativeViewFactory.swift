@@ -10,14 +10,27 @@ import UIKit
 
 public class AFSNativeViewFactory: NSObject, FlutterPlatformViewFactory {
     init(messenger: FlutterBinaryMessenger) {
-        self.messenger = messenger
+        super.init()
     }
     
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        return AFSNativePlatformView((messenger: messenger,
-                                      frame: frame, viewId: viewId,
-                                      args: args)
-                                     
+//        return AFSNativePlatformView((messenger: messenger,
+//                                      frame: frame, viewId: viewId,
+//                                      args: args)
+        return AFSNativePlatfornView(frame: frame)
      }
                                      
+}
+
+class AFSNativePlatfornView: NSObject, FlutterPlatformView {
+    
+    var frame: CGRect
+    
+    init(frame: CGRect) {
+        self.frame = frame
+    }
+    
+    func view() -> UIView {
+        return UIView(frame: frame)
+    }
 }
